@@ -24,6 +24,7 @@
           GitHub
         </a>
       </div>
+      <h2 v-html="post.html"></h2>
     </div>
   </div>
 </template>
@@ -32,10 +33,28 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
+   async asyncData({ params }) {
+      try {
+        let post = await import(`~/_posts/blog/2019-08-26-starting.md`);
+        console.log(post, 'test')
+        return { post: post.default }
+      } catch(err) {
+        console.debug(err)
+        return false
+      }
+    },
   components: {
     Logo
+  },
+
+  mounted: function () {
+    console.log('test')
   }
 }
+
+
+
+
 </script>
 
 <style>
